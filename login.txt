@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace halaman_login
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string b = textBox2.Text;
+            string a = textBox1.Text;
+            //login 1
+            if (a ==("admin1")&& b ==("12345") || (a == ("admin2") && b == ("anak rantau")))
+            {
+                MessageBox.Show("anda masuk ke " + a);
+                Hotel h = new Hotel();
+                h.welcome = "welcome" + textBox1.Text;
+                h.Show();
+                this.Hide();
+
+            }
+           
+             else if
+               (a == ("joko") && b == ("rumahan") || (a == ("hidayat") && b == ("rumahan")) || (a == ("andri") && b == ("rumahan")))
+            {
+                MessageBox.Show("anda masuk ke " + a);
+                Hotel h = new Hotel();
+                h.welcome = "welcome" + textBox1.Text;
+                h.Show();
+                this.Hide();
+
+            }
+            else
+            {
+                MessageBox.Show("Maaf Password Salah");
+            }
+
+                }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+        }
+    }
+        }
