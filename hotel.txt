@@ -1,0 +1,150 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace halaman_login
+{
+    public partial class Hotel : Form
+    {
+
+        public string welcome
+        {
+            get { return label20.Text; }
+            set { label20.Text = value; }
+        }
+        public Hotel()
+        {
+            InitializeComponent();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtnama.Text = "";
+            txtalamat.Text = "";
+            txtusia.Text = "";
+            combokelas.Text = "";
+            combosewa.Text = "";
+            label15.Text = "";
+            label16.Text = "";
+            label17.Text = "";
+            fasilitas.Text = "";
+            hargasehari.Text = "";
+            ppnp.Text = "";
+            totalbayar.Text = "";
+
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string a, b, c, combo1, combo2;
+            int harga, ppn, total, lama;
+            a = txtnama.Text;
+            b = txtalamat.Text;
+            c = txtusia.Text;
+            combo1 = combokelas.Text;
+            combo2 = combosewa.Text;
+            if (string.IsNullOrEmpty(combo1) || string.IsNullOrEmpty(combo2))
+            {
+                MessageBox.Show("Silakan pilih kelas dan durasi sewa terlebih dahulu.");
+                return;
+            }
+
+            lama = Convert.ToInt32(combo2);
+
+            if (combo1.Equals("VIP"))
+            {
+                fasilitas.Text = "Kamar Mewah, TV dan Hotspot";
+                harga = 700000;
+                ppn = 20000;
+                total = (harga * lama) + ppn;
+
+                label15.Text = a;
+                label16.Text = b;
+                label17.Text = c;
+
+                hargasehari.Text = harga.ToString();
+                ppnp.Text = ppn.ToString();
+                totalbayar.Text = total.ToString();
+            }
+            else if (combo1.Equals("Standar"))
+            {
+                fasilitas.Text = "Kamar Mewah, TV";
+                harga = 500000;
+                ppn = 20000;
+                total = (harga * lama) + ppn;
+
+                label15.Text = a;
+                label16.Text = b;
+                label17.Text = c;
+
+                hargasehari.Text = harga.ToString();
+                ppnp.Text = ppn.ToString();
+                totalbayar.Text = total.ToString();
+            }
+            else 
+            {
+                fasilitas.Text = "Kamar Mewah";
+                harga = 300000;
+                ppn = 20000;
+                total = (harga * lama) + ppn;
+
+                label15.Text = a;
+                label16.Text = b;
+                label17.Text = c;
+
+                hargasehari.Text = harga.ToString();
+                ppnp.Text = ppn.ToString();
+                totalbayar.Text = total.ToString();
+            }
+        }
+
+        private void restaurantToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            Restaurant r = new Restaurant();
+            r.Show();
+            this.Hide();
+        }
+
+        private void swimmingPoolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Swimming_Pool sp = new Swimming_Pool();
+            sp.Show();
+            this.Hide();
+        }
+
+        private void cafeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cafe c = new cafe();
+            c.Show();
+            this.Hide();
+        }
+
+        private void Hotel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutUsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Contact cn = new Contact();
+            cn.Show();
+            this.Hide();
+        }
+
+        private void laundryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Laundry L = new Laundry();
+            L.Show();
+            this.Hide();
+        }
+    }
+}
