@@ -1,0 +1,255 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BangunDatar
+{
+
+    public class BangunDatar
+    {
+        private double panjang;
+        private double lebar;
+
+        public BangunDatar(double p, double l)
+        {
+            Panjang = p;
+            Lebar = l;
+        }
+
+        public double Panjang
+        {
+            get { return panjang; }
+            set { panjang = value > 0 ? value : 0; }
+        }
+
+        public double Lebar
+        {
+            get { return lebar; }
+            set { lebar = value > 0 ? value : 0; }
+        }
+
+        public virtual double HitungLuas()
+        {
+            return Panjang * Lebar;
+        }
+
+        public virtual double HitungKeliling()
+        {
+            return 2 * (Panjang + Lebar);
+        }
+    }
+
+    public class Persegi : BangunDatar
+    {
+        public Persegi(double sisi) : base(sisi, sisi)
+        {
+        }
+    }
+
+    public class Segitiga : BangunDatar
+    {
+        private double tinggi;
+
+        public Segitiga(double alas, double tinggi) : base(alas, 0)
+        {
+            Tinggi = tinggi;
+        }
+
+        public double Tinggi
+        {
+            get { return tinggi; }
+            set { tinggi = value > 0 ? value : 0; }
+        }
+
+        public override double HitungLuas()
+        {
+            return 0.5 * Panjang * Tinggi;
+        }
+
+        public override double HitungKeliling()
+        {
+            // Untuk segitiga siku-siku
+            double sisiMiring = Math.Sqrt(Math.Pow(Panjang, 2) + Math.Pow(Tinggi, 2));
+            return Panjang + Tinggi + sisiMiring;
+        }
+    }
+
+    public class Lingkaran : BangunDatar
+    {
+        public Lingkaran(double radius) : base(radius * 2, 0)
+        {
+        }
+
+        public override double HitungLuas()
+        {
+            return Math.PI * Panjang * 0.5;
+        }
+
+        public override double HitungKeliling()
+        {
+            return Math.PI * Panjang;
+        }
+    }
+
+    public class LayangLayang : BangunDatar
+    {
+        private double diagonal1;
+        private double diagonal2;
+
+        public LayangLayang(double d1, double d2) : base(0, 0)
+        {
+            Diagonal1 = d1;
+            Diagonal2 = d2;
+        }
+
+        public double Diagonal1
+        {
+            get { return diagonal1; }
+            set { diagonal1 = value > 0 ? value : 0; }
+        }
+
+        public double Diagonal2
+        {
+            get { return diagonal2; }
+            set { diagonal2 = value > 0 ? value : 0; }
+        }
+
+        public override double HitungLuas()
+        {
+            return 0.5 * Diagonal1 * Diagonal2;
+        }
+
+        public override double HitungKeliling()
+        {
+            return 2 * (Panjang + Lebar);
+        }
+    }
+
+
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("===============================");
+            Console.WriteLine("| Apa yang ingin Anda hitung? |");
+            Console.WriteLine("| 1. Luas Bangun Datar        |");
+            Console.WriteLine("| 2. Keliling Bangun Datar    |");
+            Console.WriteLine("===============================");
+
+            int jenisPerhitungan = Convert.ToInt32(Console.ReadLine());
+
+            switch (jenisPerhitungan)
+            {
+                case 1:
+                    Console.WriteLine("===============================");
+                    Console.WriteLine("| Pilih jenis bangun datar:   |");
+                    Console.WriteLine("| 1. Persegi                |");
+                    Console.WriteLine("| 2. Segitiga               |");
+                    Console.WriteLine("| 3. Lingkaran              |");
+                    Console.WriteLine("| 4. Layang-layang          |");
+                    Console.WriteLine("===============================");
+
+                    int pilihan = Convert.ToInt32(Console.ReadLine());
+
+                    switch (pilihan)
+                    {
+                        case 1:
+                            Console.Write("Masukkan panjang sisi: ");
+                            double sisiPersegi = Convert.ToDouble(Console.ReadLine());
+                            Persegi persegi = new Persegi(sisiPersegi);
+                            Console.WriteLine($"Luas Persegi: {persegi.HitungLuas()}");
+                            break;
+
+                        case 2:
+                            Console.Write("Masukkan alas segitiga: ");
+                            double alasSegitiga = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Masukkan tinggi segitiga: ");
+                            double tinggiSegitiga = Convert.ToDouble(Console.ReadLine());
+                            Segitiga segitiga = new Segitiga(alasSegitiga, tinggiSegitiga);
+                            Console.WriteLine($"Luas Segitiga: {segitiga.HitungLuas()}");
+                            break;
+
+                        case 3:
+                            Console.Write("Masukkan radius lingkaran: ");
+                            double radiusLingkaran = Convert.ToDouble(Console.ReadLine());
+                            Lingkaran lingkaran = new Lingkaran(radiusLingkaran);
+                            Console.WriteLine($"Luas Lingkaran: {lingkaran.HitungLuas()}");
+                            break;
+
+                        case 4:
+                            Console.Write("Masukkan diagonal 1: ");
+                            double diagonal1LayangLayang = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Masukkan diagonal 2: ");
+                            double diagonal2LayangLayang = Convert.ToDouble(Console.ReadLine());
+                            LayangLayang layangLayang = new LayangLayang(diagonal1LayangLayang, diagonal2LayangLayang);
+                            Console.WriteLine($"Luas Layang-layang: {layangLayang.HitungLuas()}");
+                            break;
+
+                        default:
+                            Console.WriteLine("Pilihan tidak valid.");
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    Console.WriteLine("===============================");
+                    Console.WriteLine("| Pilih jenis bangun datar:   |");
+                    Console.WriteLine("| 1. Persegi                |");
+                    Console.WriteLine("| 2. Segitiga               |");
+                    Console.WriteLine("| 3. Lingkaran              |");
+                    Console.WriteLine("| 4. Layang-layang          |");
+                    Console.WriteLine("===============================");
+
+                    int pilihanKeliling = Convert.ToInt32(Console.ReadLine());
+
+                    switch (pilihanKeliling)
+                    {
+                        case 1:
+                            Console.Write("Masukkan panjang sisi: ");
+                            double sisiPersegi = Convert.ToDouble(Console.ReadLine());
+                            Persegi persegi = new Persegi(sisiPersegi);
+                            Console.WriteLine($"Keliling Persegi: {persegi.HitungKeliling()}");
+                            break;
+
+                        case 2:
+                            Console.Write("Masukkan alas segitiga: ");
+                            double alasSegitiga = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Masukkan tinggi segitiga: ");
+                            double tinggiSegitiga = Convert.ToDouble(Console.ReadLine());
+                            Segitiga segitiga = new Segitiga(alasSegitiga, tinggiSegitiga);
+                            Console.WriteLine($"Keliling Segitiga: {segitiga.HitungKeliling()}");
+                            break;
+
+                        case 3:
+                            Console.Write("Masukkan radius lingkaran: ");
+                            double radiusLingkaran = Convert.ToDouble(Console.ReadLine());
+                            Lingkaran lingkaran = new Lingkaran(radiusLingkaran);
+                            Console.WriteLine($"Keliling Lingkaran: {lingkaran.HitungKeliling()}");
+                            break;
+
+                        case 4:
+                            Console.Write("Masukkan diagonal 1: ");
+                            double diagonal1LayangLayang = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Masukkan diagonal 2: ");
+                            double diagonal2LayangLayang = Convert.ToDouble(Console.ReadLine());
+                            LayangLayang layangLayang = new LayangLayang(diagonal1LayangLayang, diagonal2LayangLayang);
+                            Console.WriteLine($"Keliling Layang-layang: {layangLayang.HitungKeliling()}");
+                            break;
+
+                        default:
+                            Console.WriteLine("Pilihan tidak valid.");
+                            break;
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Pilihan tidak valid.");
+                    break;
+            }
+
+            Console.ReadLine();
+        }
+    }
+}
